@@ -1,0 +1,134 @@
+#include<stdio.h>
+#include<conio.h>
+#include<alloc.h>
+#include<stdlib.h>
+void create();
+void insert();
+void del();
+void display();
+struct node
+{
+ int data;
+ struct node *link;
+};
+struct node *first = null, *last = null ,*next, *curr, *prev;
+int ch;
+void main()
+{
+ clrscr();
+ printf(“singly linked list \n”);
+ do
+ {
+  printf(“\n 1.create  \n 2.insert \n 3.delete \n 4.exit \n ”);
+  printf(“Enter your choice”);
+  scanf(“%d”, &ch);
+  switch(ch)
+  {
+   case 1: create();
+           display();
+           break;
+   case 2: insert();
+           display();
+           break;
+   case 3: del();
+           display();
+           break;
+   case 4: exit(0);
+  }
+ }
+ while(ch<=3);
+}
+void create()
+{
+ curr = (struct node *) malloc(sizeof(struct node));
+ printf(“Enter the data: ”);
+ scanf(“%d”, &curr -> data);
+ curr -> link = null;
+ first = curr;
+ last = curr;
+}
+void insert()
+{
+ int pos, c = 1;
+ curr=(struct node *)malloc(sizeof(struct node));
+ printf(“Enter the data:”);
+ scanf(“%d”, &curr -> data);
+ printf(“Enter the position:”);
+ scanf(“%d”, &pos);
+ if((pos == 1) && (first != null))
+ {
+  curr -> link = first;
+  first = curr;
+ }
+ else
+ {
+  next = first;
+  while(c < pos)
+  {
+   prev = next;
+   next = prev -> link;
+   c++;
+  }
+  if(prev == null)
+  {
+  printf(“\n Invalid position”);
+ }
+ else
+ {
+  curr -> link = prev -> link;
+  prev -> link = curr;
+  if(curr -> link == null)
+  {
+   last = curr;
+  }
+ }
+}
+void del()
+{
+ int pos, c = 1;
+ printf(“Enter the position”);
+ scanf(“%d”, &pos);
+ if(first = null)
+ {
+  printf(“\n list is empty”);
+ }
+ else if(pos == 1) && (first -> link == null)
+ {
+  printf(“\n Deleted element is %d \n”, curr -> data);
+  free(curr);
+ }
+ else
+ { 
+  next = first;
+  while(c < pos)
+  {
+   prev = next;
+   next = next -> link;
+   c++;
+  }
+  prev -> link = next -> link;
+  next -> link = null;
+  if(next = null)
+  {
+   printf(“\n Invalid position”);
+  }
+  else
+  {
+   printf(“\n Deleted element is:%d\n”, next -> data);
+   free(next);
+   if(prev -> link == null)
+   {
+    last = prev;
+   }
+  }
+ }
+}
+void display()
+{
+ curr = first;
+ while(curr != null)
+ {
+  printf(“\n %d”, curr -> data);
+  curr = curr -> link;
+ }
+}
